@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form{
+      width: 500px;
+      height: 200px;
+      background-color: rgb(55, 101, 157);
+      text-align: center;
+      padding-top: 4rem;
+    }
+      label{
+      font-size: 1.2rem;
+      color: white;
+    }
+  </style>
+  <script>
+    // Function to save input fields' values to localStorage
+    function saveFormData() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const email = document.getElementById('email').value;
+
+      // Store the values in localStorage
+      localStorage.setItem('username', username);
+      localStorage.setItem('password', password);
+      localStorage.setItem('email', email);
+    }
+
+    // Function to load input fields' values from localStorage
+    function loadFormData() {
+      const username = localStorage.getItem('username');
+      const password = localStorage.getItem('password');
+      const email = localStorage.getItem('email');
+
+      // If data exists in localStorage, pre-fill the fields
+      if (username) document.getElementById('username').value = username;
+      if (password) document.getElementById('password').value = password;
+      if (email) document.getElementById('email').value = email;
+    }
+
+    // Function to handle form submission
+    function SubmitForm(event) {
+      event.preventDefault(); // Prevent form submission
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const email = document.getElementById('email').value;
+
+      if (username && password && email) {
+        alert("Form submitted successfully!");
+
+        // Clear the form fields
+        document.getElementById('username').value = "";
+        document.getElementById('password').value = "";
+        document.getElementById('email').value = "";
+
+        // Clear localStorage
+        localStorage.removeItem('username');
+        localStorage.removeItem('password');
+        localStorage.removeItem('email');
+      } else {
+        alert("Please fill all the fields.");
+      }
+    }
+
+    // Load form data when the page loads
+    window.addEventListener('DOMContentLoaded', (event) => {
+      loadFormData();
+
+      // Save data on each input change
+      document.getElementById('username').addEventListener('input', saveFormData);
+      document.getElementById('password').addEventListener('input', saveFormData);
+      document.getElementById('email').addEventListener('input', saveFormData);
+    });
+  </script>
+</head>
+<body>
+  <h1>Login</h1>
+
+  <form onsubmit="SubmitForm(event)">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required><br><br>
+
+    <label for="email">Email Id:</label>
+    <input type="email" name="email" id="email" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required><br><br>
+
+    <button type="submit">Login</button>
+  </form>
+</body>
+</html>
